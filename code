@@ -1,0 +1,384 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Book List Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const LoginPage(),
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: usernameController,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+              child: const Text('Login'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Book List'),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(8),
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookDetailPage()),
+              );
+            },
+            child: const BookListItem(
+              imageUrl: 'https://i.pinimg.com/236x/6d/88/d7/6d88d7c7bdd63b83fd563fbac4404733.jpg',
+              title: 'everybody natural guide to esp',
+              rating: 4.5,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookDetailPage()),
+              );
+            },
+            child: const BookListItem(
+              imageUrl: 'https://i.pinimg.com/236x/30/ae/c3/30aec38ca59b3205cebfb17ce3ac35fa.jpg',
+              title: 'An Introduction to Parapsychology',
+              rating: 4.0,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookDetailPage()),
+              );
+            },
+            child: const BookListItem(
+              imageUrl: 'https://i.pinimg.com/236x/ba/d3/2f/bad32faffe73142d103657c3f008e7d9.jpg',
+              title: 'power of your supconscious mind',
+              rating: 5.0,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookDetailPage()),
+              );
+            },
+            child: const BookListItem(
+              imageUrl: 'https://i.pinimg.com/236x/31/c8/52/31c852253d49d2be417cf9b3e73a1a19.jpg',
+              title: 'عداء الطائرة الورقية',
+              rating: 3.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BookListItem extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final double rating;
+
+  const BookListItem({
+    required this.imageUrl,
+    required this.title,
+    required this.rating,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(
+                imageUrl,
+                width: 100,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 16.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    children: List.generate(5, (index) {
+                      return Icon(
+                        index < rating ? Icons.star : Icons.star_border,
+                        color: Colors.orange,
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BookDetailPage extends StatelessWidget {
+  const BookDetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 200,
+                      width: 128,
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          "https://i.pinimg.com/236x/6d/88/d7/6d88d7c7bdd63b83fd563fbac4404733.jpg",
+                          height: 250,
+                          width: 150,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 25),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "everybody natural guide to esp",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          const Text(
+                            "Ingo Swann",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: const [
+                              Icon(Icons.star, color: Colors.orangeAccent),
+                              Icon(Icons.star, color: Colors.orangeAccent),
+                              Icon(Icons.star, color: Colors.orangeAccent),
+                              Icon(Icons.star_half, color: Colors.orangeAccent),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 35),
+                const Text(
+                  "About",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  "In this milestone book, Ingo Swann guides the reader through revolutionary techniques "
+                      "he developed and tested in thousands of experiments, with startling results, for "
+                      "tapping ESP potential. His exciting new concepts of mind mound, mind manifestation, "
+                      "and the ESP core help readers demystify ESP and link this important inner reality to what "
+                      "is already known about dreams, memory, quantum physics, and human creativity. Swann shows how "
+                      "to become more receptive to the deeper self and make contact with the hidden reality in which ESP operates.",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 35),
+                const Text(
+                  "Suggested books:",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(
+                                  Icons.book,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(width: 4),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "An Introduction to Parapsychology",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Text(
+                                        "The book explores the study of paranormal phenomena and "
+                                            "the scientific approach taken to understand them.",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          "https://i.pinimg.com/236x/30/ae/c3/30aec38ca59b3205cebfb17ce3ac35fa.jpg",
+                          height: 150,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomIconStyle extends StatelessWidget {
+  const CustomIconStyle({
+    Key? key,
+    required this.icon,
+  }) : super(key: key);
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Icon(
+        icon,
+        color: Colors.orangeAccent,
+        size: 32,
+      ),
+      height: 48,
+      width: 48,
+      decoration: BoxDecoration(
+        color: Colors.deepOrange[50],
+        borderRadius: BorderRadius.circular(16),
+      ),
+    );
+  }
+}
